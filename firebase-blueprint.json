@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "An automated browser task instance run via Steel.dev",
+      "type": "object",
+      "properties": {
+        "taskId": { "type": "string" },
+        "taskType": { "type": "string" },
+        "label": { "type": "string" },
+        "status": { "type": "string" },
+        "progress": { "type": "number" },
+        "total": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "steelDebugUrl": { "type": "string" },
+        "config": { "type": "object" }
+      },
+      "required": ["taskId", "taskType", "status", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A message within a task's interactive chat log",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string" },
+        "msg": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["role", "msg", "timestamp"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "An extracted prospect or business lead from automated scrapes",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "website": { "type": "string" },
+        "leadType": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "niche": { "type": "string" },
+        "city": { "type": "string" }
+      },
+      "required": ["businessName", "createdAt"]
+    },
+    "Session": {
+      "title": "Session",
+      "description": "Saved automated platform cookies/localStorage state to resume browser sessions",
+      "type": "object",
+      "properties": {
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["updatedAt"]
+    }
+  },
+  "firestore": {
+    "/assix_tasks/{taskId}": {
+      "schema": "Task",
+      "description": "The active and completed automation tasks"
+    },
+    "/assix_tasks/{taskId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Interactive chat history associated with a task"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Scraped business leads and outreach prospects"
+    },
+    "/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Saved social account login credentials/state"
+    }
+  }
+}
